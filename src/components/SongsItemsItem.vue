@@ -45,6 +45,10 @@ export default {
         &:hover {
             background-color: #f1f1f1
         }
+
+        &:hover .songs-items__play-button {
+            display: flex;
+        }
     }
 
     &__wrapper {
@@ -53,14 +57,27 @@ export default {
         justify-content: flex-start;
     }
 
-    &__play {
+    &__play-button {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background-color: #ffd12f;
+        width: 32px;
+        height: 32px;
+        cursor: pointer;
         display: none;
     }
 
     &__image {
-        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
         img {
             width: 52px;
+            position: relative;
         }
     }
 
