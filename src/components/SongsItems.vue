@@ -34,7 +34,8 @@ export default {
         return {
             songs: [],
             page: 1,
-            activeSongIcon: null
+            activeSongIcon: null,
+            activeSong: null
         }
     },
     methods: {
@@ -66,6 +67,28 @@ export default {
                 this.activeSongIcon.active = false
                 this.activeSongIcon = song
             }
+        },
+        songLoad: function(song) {
+            const data = this.$apiMusic.get.music(song.id)
+            this.songPlay(data)
+        },
+        songPlay: function(data) {
+            const audio = this.songToggle(data)
+
+            audio.volume = 0.1
+            audio.play()
+        },
+        songToggle: function(data) {
+            let audio = null
+            if (this.activeSong === null) {
+                audio = new Audio(data)
+                this.activeSong = audio
+            } else {
+                this.activeSong.pause()
+                audio = new Audio(data)
+                this.activeSong = audio
+            }
+            return audio
         }
     },
     mounted: function() {
