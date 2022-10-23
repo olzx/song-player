@@ -1,5 +1,5 @@
 <template>
-    <div class="songs-items__song">
+    <div v-bind:class="['songs-items__song', {'songs-items__song_active': song.active}]">
         <div class="songs-items__wrapper">
             <div class="songs-items__image">
                 <img v-bind:src="song.cover" alt="img">
@@ -48,7 +48,7 @@ export default {
         padding: 15px 30px;
         transition: background-color .2s linear;
 
-        &:hover {
+        &:hover, &_active {
             background-color: #f1f1f1
         }
 
