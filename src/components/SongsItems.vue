@@ -38,12 +38,18 @@ export default {
 
 <style lang="scss">
 .songs-items {
-    display: flex;
-    flex-direction: column;
-    list-style: none;
-    border: 1px solid #e6e6e6;
-    border-radius: 10px;
-    padding: 0;
+    margin-top: 30px;
+
+    &__table {
+        display: flex;
+        flex-direction: column;
+        list-style: none;
+        border: 1px solid #e6e6e6;
+        border-radius: 10px;
+        padding: 0;
+        margin: 0;
+        margin-bottom: 230px;
+    }
 
     &__head {
         display: flex;
