@@ -74,6 +74,7 @@ export default {
         },
         songPlay: function(data) {
             const audio = this.songToggle(data)
+            if (audio === null) return
 
             audio.volume = 0.1
             audio.play()
@@ -83,6 +84,10 @@ export default {
             if (this.songActive === null) {
                 audio = new Audio(data)
                 this.songActive = audio
+            } else if(this.songActive.src === data) {
+                this.songActive.pause()
+                this.songActive = null
+                return null
             } else {
                 this.songActive.pause()
                 audio = new Audio(data)
