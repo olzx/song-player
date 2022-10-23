@@ -34,7 +34,7 @@ export default {
         return {
             songs: [],
             page: 1,
-            activeSong: null
+            activeSongIcon: null
         }
     },
     methods: {
@@ -55,15 +55,15 @@ export default {
             this.toggleSong(this.songs[indexFind])
         },
         toggleSong: function(song) {
-            if (this.activeSong === null) {
+            if (this.activeSongIcon === null) {
                 song.active = !song.active
-                this.activeSong = song
-            } else if (this.activeSong === song) {
+                this.activeSongIcon = song
+            } else if (this.activeSongIcon === song) {
                 song.active = !song.active
             } else {
                 song.active = !song.active
-                this.activeSong.active = false
-                this.activeSong = song
+                this.activeSongIcon.active = false
+                this.activeSongIcon = song
             }
         }
     },
