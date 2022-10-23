@@ -9,6 +9,7 @@ function timeChange(data) {
     for(let i = 0; i < data.length; i++) {
         const duration = data[i].duration
         data[i].time = secondsToTime(duration)
+        data[i].active = false
     }
     return data
 }
