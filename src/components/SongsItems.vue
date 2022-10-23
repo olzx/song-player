@@ -1,36 +1,59 @@
 <template>
-    <ul class="songs-items">
-        <li class="songs-items__head">
-            <div class="songs-items__lef">
-                <span>Название</span>
-            </div>
-            <div class="songs-items__right">
-                <span>ID</span>
-                <span>Время</span>
-            </div>
-        </li>
-        <SongsItemsItem
-            v-for="song in songs"
-            v-bind:key="song.id"
-            v-bind:song="song"
-        ></SongsItemsItem>
-    </ul>
+    <div class="songs-items">
+        <ul class="songs-items__table">
+            <li class="songs-items__head">
+                <div class="songs-items__lef">
+                    <span>Название</span>
+                </div>
+                <div class="songs-items__right">
+                    <span>ID</span>
+                    <span>Время</span>
+                </div>
+            </li>
+            <SongsItemsItem
+                v-for="song in songs"
+                v-bind:key="song.id"
+                v-bind:song="song"
+                v-on:song:click="songClick(song)"
+            ></SongsItemsItem>
+        </ul>
+        <infinite-loading v-if="songs.length > 0" @infinite="loadNextPage"></infinite-loading>
+    </div>
 </template>
 
 <script>
 import SongsItemsItem from './SongsItemsItem.vue'
+import InfiniteLoading from 'vue-infinite-loading'
 
 export default {
     components: {
-        SongsItemsItem
+        SongsItemsItem,
+        InfiniteLoading
     },
     data: function() {
         return {
-            songs: []
+            songs: [],
+            page: 1
+        }
+    },
+    methods: {
+        loadNextPage: function($state) {
+            this.$apiMusic.get.page(this.page++)
+                .then(data => {
+                    if (data.length === 0) {
+                        $state.complete()
+                        return
+                    }
+                    this.songs = this.songs.concat(data)
+                    $state.loaded()
+                })
+        },
+        songClick: function(song) {
+            console.log(song)
         }
     },
     mounted: function() {
-        this.$apiMusic.get.page(1)
+        this.$apiMusic.get.page(this.page++)
             .then(data => this.songs = data)
     }
 }
