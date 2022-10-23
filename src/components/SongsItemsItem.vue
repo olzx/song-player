@@ -52,6 +52,10 @@ export default {
             background-color: #f1f1f1
         }
 
+        &_active .songs-items__play-button {
+            display: flex;
+        }
+
         &:hover .songs-items__play-button {
             display: flex;
         }
