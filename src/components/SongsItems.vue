@@ -33,7 +33,8 @@ export default {
     data: function() {
         return {
             songs: [],
-            page: 1
+            page: 1,
+            activeSong: null
         }
     },
     methods: {
@@ -51,7 +52,19 @@ export default {
         songClick: function(song) {
             const indexFind = this.songs.indexOf(song)
             if(indexFind === -1) return
-            this.songs[indexFind].active = !this.songs[indexFind].active
+            this.toggleSong(this.songs[indexFind])
+        },
+        toggleSong: function(song) {
+            if (this.activeSong === null) {
+                song.active = !song.active
+                this.activeSong = song
+            } else if (this.activeSong === song) {
+                song.active = !song.active
+            } else {
+                song.active = !song.active
+                this.activeSong.active = false
+                this.activeSong = song
+            }
         }
     },
     mounted: function() {
