@@ -23,7 +23,7 @@ export default {
 @import './assets/icomoon/style.css';
 @font-face {
     font-family: 'DinDisplayProLight';
-    src: url('./assets/PFDinDisplayPro\ Light.ttf');
+    src: url('./assets/fonts/PFDinDisplayPro\ Light.ttf');
 }
 body {
     font-family: DinDisplayProLight;
