@@ -4,7 +4,7 @@
             <div class="songs-items__image">
                 <img v-bind:src="song.cover" alt="img">
                 <div class="songs-items__play-button">
-                    <span class="songs-items__play icon icon__pause"></span>
+                    <span v-on:click="$emit('song:click', song)" class="songs-items__play icon icon__pause"></span>
                 </div>
             </div>
             <div class="songs-items__title">
