@@ -14,7 +14,8 @@ export default function(instance) {
             return instance.get(pageStr + valueStr)
         },
         music(id) {
-            return instance.get('music/' + id)
+            const baseURL = instance.defaults.baseURL
+            return baseURL + 'music/' + id
         }
     }
 }
