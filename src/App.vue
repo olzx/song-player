@@ -28,6 +28,7 @@ export default {
 body {
     font-family: DinDisplayProLight;
     -webkit-user-select: none;
+    margin: 0;
 }
 
 #app {
