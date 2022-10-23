@@ -2,19 +2,19 @@
     <div class="songs-items__song">
         <div class="songs-items__wrapper">
             <div class="songs-items__image">
-                <img v-bind:src="song.img" alt="img">
+                <img v-bind:src="song.cover" alt="img">
                 <div class="songs-items__play-button">
                     <span class="songs-items__play icon icon__pause"></span>
                 </div>
             </div>
             <div class="songs-items__title">
-                <div class="songs-items__name">{{ song.name }}</div>
+                <div class="songs-items__name">{{ song.title }}</div>
                 <div class="songs-items__artist">{{ song.artist }}</div>
             </div>
         </div>
         <div class="songs-items__right">
             <span>{{ song.id }}</span>
-            <span>{{ song.duration }}</span>
+            <span>{{ song.time }}</span>
         </div>
     </div>
 </template>
