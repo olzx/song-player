@@ -52,9 +52,10 @@ export default {
         songClick: function(song) {
             const indexFind = this.songs.indexOf(song)
             if(indexFind === -1) return
-            this.toggleSong(this.songs[indexFind])
+            this.songToggleIcon(this.songs[indexFind])
+            this.songLoad(this.songs[indexFind])
         },
-        toggleSong: function(song) {
+        songToggleIcon: function(song) {
             if (this.activeSongIcon === null) {
                 song.active = !song.active
                 this.activeSongIcon = song
