@@ -1,11 +1,13 @@
 <template>
     <div id="app">
         <SongsItems></SongsItems>
+        <SongsController></SongsController>
     </div>
 </template>
 
 <script>
 import SongsItems from './components/SongsItems.vue'
+import SongsController from './components/SongsController.vue'
 
 export default {
     data: function() {
@@ -14,7 +16,8 @@ export default {
         }
     },
     components: {
-        SongsItems
+        SongsItems,
+        SongsController
     }
 }
 </script>
