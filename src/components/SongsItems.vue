@@ -49,7 +49,9 @@ export default {
                 })
         },
         songClick: function(song) {
-            console.log(song)
+            const indexFind = this.songs.indexOf(song)
+            if(indexFind === -1) return
+            this.songs[indexFind].active = !this.songs[indexFind].active
         }
     },
     mounted: function() {

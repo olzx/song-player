@@ -3,8 +3,8 @@
         <div class="songs-items__wrapper">
             <div class="songs-items__image">
                 <img v-bind:src="song.cover" alt="img">
-                <div class="songs-items__play-button">
-                    <span v-on:click="$emit('song:click', song)" class="songs-items__play icon icon__pause"></span>
+                <div v-on:click="$emit('song:click', song)" class="songs-items__play-button">
+                    <span v-bind:class="playButtonToggle"></span>
                 </div>
             </div>
             <div class="songs-items__title">
@@ -25,6 +25,12 @@ export default {
         song: {
             type: Object,
             require: true
+        }
+    },
+    computed: {
+        playButtonToggle: function() {
+            const isActive = this.song.active ? 'icon__play' : 'icon__pause'
+            return ['songs-items__play', 'icon', isActive]
         }
     }
 }
