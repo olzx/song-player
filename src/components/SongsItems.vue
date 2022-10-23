@@ -34,8 +34,8 @@ export default {
         return {
             songs: [],
             page: 1,
-            activeSongIcon: null,
-            activeSong: null
+            songActiveIcon: null,
+            songActive: null
         }
     },
     methods: {
@@ -57,15 +57,15 @@ export default {
             this.songLoad(this.songs[indexFind])
         },
         songToggleIcon: function(song) {
-            if (this.activeSongIcon === null) {
+            if (this.songActiveIcon === null) {
                 song.active = !song.active
-                this.activeSongIcon = song
-            } else if (this.activeSongIcon === song) {
+                this.songActiveIcon = song
+            } else if (this.songActiveIcon === song) {
                 song.active = !song.active
             } else {
                 song.active = !song.active
-                this.activeSongIcon.active = false
-                this.activeSongIcon = song
+                this.songActiveIcon.active = false
+                this.songActiveIcon = song
             }
         },
         songLoad: function(song) {
@@ -80,13 +80,13 @@ export default {
         },
         songToggle: function(data) {
             let audio = null
-            if (this.activeSong === null) {
+            if (this.songActive === null) {
                 audio = new Audio(data)
-                this.activeSong = audio
+                this.songActive = audio
             } else {
-                this.activeSong.pause()
+                this.songActive.pause()
                 audio = new Audio(data)
-                this.activeSong = audio
+                this.songActive = audio
             }
             return audio
         }
