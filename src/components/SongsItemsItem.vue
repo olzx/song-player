@@ -4,7 +4,7 @@
             <div class="songs-items__image">
                 <img v-bind:src="song.img" alt="img">
                 <div class="songs-items__play-button">
-                    <span class="songs-items__play icon-play3"></span>
+                    <span class="songs-items__play icon icon__pause"></span>
                 </div>
             </div>
             <div class="songs-items__title">

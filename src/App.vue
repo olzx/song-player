@@ -20,7 +20,7 @@ export default {
 </script>
 
 <style>
-@import './assets/icomoon/style.css';
+@import url('./assets/buttons/buttons.css');
 @font-face {
     font-family: 'DinDisplayProLight';
     src: url('./assets/fonts/PFDinDisplayPro\ Light.ttf');

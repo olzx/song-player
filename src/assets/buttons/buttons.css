@@ -1,0 +1,23 @@
+.icon {
+    display: inline-block;
+    background: 50% no-repeat;
+    background-size: 100%;
+    width: 24px;
+    height: 24px;
+}
+
+.icon__play {
+    background-image: url('./play.svg');
+}
+
+.icon__pause {
+    background-image: url('./pause.svg');
+}
+
+.icon__next {
+    background-image: url('./next.svg');
+}
+
+.icon__previous {
+    background-image: url('./previous.svg');
+}
