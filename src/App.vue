@@ -32,7 +32,6 @@ body {
 }
 
 #app {
-    width: 727px;
     margin: 0 auto;
 }
 </style>

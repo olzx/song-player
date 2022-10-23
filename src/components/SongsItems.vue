@@ -105,6 +105,8 @@ export default {
 
 <style lang="scss">
 .songs-items {
+    width: 727px;
+    margin: 0 auto;
     margin-top: 30px;
 
     &__table {
