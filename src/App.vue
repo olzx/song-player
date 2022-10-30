@@ -10,11 +10,6 @@ import SongsItems from './components/SongsItems.vue'
 import SongsController from './components/SongsController.vue'
 
 export default {
-    data: function() {
-        return {
-            data: 'Hello World'
-        }
-    },
     components: {
         SongsItems,
         SongsController
