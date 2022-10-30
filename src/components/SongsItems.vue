@@ -34,8 +34,7 @@ export default {
         return {
             songs: [],
             page: 1,
-            songActiveIcon: null,
-            songActive: null
+            songActiveIcon: null
         }
     },
     methods: {
@@ -54,7 +53,6 @@ export default {
             const indexFind = this.songs.indexOf(song)
             if(indexFind === -1) return
             this.songToggleIcon(this.songs[indexFind])
-            this.songLoad(this.songs[indexFind])
         },
         songToggleIcon: function(song) {
             if (this.songActiveIcon === null) {
@@ -67,33 +65,6 @@ export default {
                 this.songActiveIcon.active = false
                 this.songActiveIcon = song
             }
-        },
-        songLoad: function(song) {
-            const data = this.$apiMusic.get.music(song.id)
-            this.songPlay(data)
-        },
-        songPlay: function(data) {
-            const audio = this.songToggle(data)
-            if (audio === null) return
-
-            audio.volume = 0.1
-            audio.play()
-        },
-        songToggle: function(data) {
-            let audio = null
-            if (this.songActive === null) {
-                audio = new Audio(data)
-                this.songActive = audio
-            } else if(this.songActive.src === data) {
-                this.songActive.pause()
-                this.songActive = null
-                return null
-            } else {
-                this.songActive.pause()
-                audio = new Audio(data)
-                this.songActive = audio
-            }
-            return audio
         }
     },
     mounted: function() {
