@@ -52,9 +52,10 @@ export default {
         songClick: function(song) {
             const indexFind = this.songs.indexOf(song)
             if(indexFind === -1) return
-            this.songToggleIcon(this.songs[indexFind])
+            this.songToggleActive(this.songs[indexFind])
+            this.$store.commit('songData/SET_ACTIVE_SONG', song)
         },
-        songToggleIcon: function(song) {
+        songToggleActive: function(song) {
             if (this.songActiveIcon === null) {
                 song.active = !song.active
                 this.songActiveIcon = song
