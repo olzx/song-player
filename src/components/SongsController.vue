@@ -1,5 +1,5 @@
 <template>
-    <div class="bar">
+    <div v-if="activeSong.title" class="bar">
         <div class="bar__content">
             <div class="song">
                 <div class="song__image">
