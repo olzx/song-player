@@ -7,6 +7,9 @@ const data = {
     getters: {
         getAllSongs: function(state) {
             return state.songs
+        },
+        getActiveSong: function(state) {
+            return state.activeSong === null ? '' : state.activeSong
         }
     },
     mutations: {

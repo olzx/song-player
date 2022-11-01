@@ -3,7 +3,7 @@
         <div class="bar__content">
             <div class="song">
                 <div class="song__image">
-                    <img v-bind:src="activeSong.image" alt="">
+                    <img v-bind:src="activeSong.cover" alt="">
                 </div>
                 <div class="song__info">
                     <div class="song__title">{{ activeSong.title }}</div>
@@ -18,8 +18,7 @@
 export default {
     computed: {
         activeSong: function() {
-            console.log(this.$store)
-            return this.$store.getters['songData/getActiveSong']
+            return this.$store.getters['songsList/getActiveSong']
         }
     }
 }
