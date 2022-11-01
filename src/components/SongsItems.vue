@@ -11,13 +11,13 @@
                 </div>
             </li>
             <SongsItemsItem
-                v-for="song in songs"
+                v-for="song in getSongs"
                 v-bind:key="song.id"
                 v-bind:song="song"
                 v-on:song:click="songClick(song)"
             ></SongsItemsItem>
         </ul>
-        <infinite-loading v-if="songs.length > 0" @infinite="loadNextPage"></infinite-loading>
+        <infinite-loading @infinite="loadNextPage"></infinite-loading>
     </div>
 </template>
 
@@ -32,9 +32,7 @@ export default {
     },
     data: function() {
         return {
-            songs: [],
-            page: 1,
-            songActiveIcon: null
+            page: 1
         }
     },
     methods: {
@@ -45,15 +43,13 @@ export default {
                         $state.complete()
                         return
                     }
-                    this.songs = this.songs.concat(data)
+                    this.$store.commit('songsList/ADD_NEW_SONGS', data)
                     $state.loaded()
                 })
         },
         songClick: function(song) {
-            const indexFind = this.songs.indexOf(song)
-            if(indexFind === -1) return
-            this.songToggleActive(this.songs[indexFind])
             this.$store.commit('songData/SET_ACTIVE_SONG', song)
+            this.$store.commit('songsList/SET_ACTIVE_SONG', song)
         },
         songToggleActive: function(song) {
             if (this.songActiveIcon === null) {
@@ -68,9 +64,10 @@ export default {
             }
         }
     },
-    mounted: function() {
-        this.$apiMusic.get.page(this.page++)
-            .then(data => this.songs = data)
+    computed: {
+        getSongs: function() {
+            return this.$store.getters['songsList/getAllSongs']
+        }
     }
 }
 </script>
