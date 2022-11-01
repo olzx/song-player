@@ -48,7 +48,6 @@ export default {
                 })
         },
         songClick: function(song) {
-            this.$store.commit('songData/SET_ACTIVE_SONG', song)
             this.$store.commit('songsList/SET_ACTIVE_SONG', song)
         },
         songToggleActive: function(song) {
