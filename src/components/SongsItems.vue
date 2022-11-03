@@ -49,18 +49,6 @@ export default {
         },
         songClick: function(song) {
             this.$store.commit('songsList/SET_ACTIVE_SONG', song)
-        },
-        songToggleActive: function(song) {
-            if (this.songActiveIcon === null) {
-                song.active = !song.active
-                this.songActiveIcon = song
-            } else if (this.songActiveIcon === song) {
-                song.active = !song.active
-            } else {
-                song.active = !song.active
-                this.songActiveIcon.active = false
-                this.songActiveIcon = song
-            }
         }
     },
     computed: {
