@@ -1,6 +1,17 @@
 <template>
     <div v-if="activeSong.title" class="bar">
         <div class="bar__content">
+            <div class="controls">
+                <div v-on:click="togglePrevious" class="controls__buttons">
+                    <div class="icon icon_size_28 icon__previous"></div>
+                </div>
+                <div v-on:click="togglePlay" class="controls__buttons">
+                    <div class="icon icon_size_28 icon__pause"></div>
+                </div>
+                <div v-on:click="toggleNext" class="controls__buttons">
+                    <div class="icon icon_size_28 icon__next"></div>
+                </div>
+            </div>
             <div class="song">
                 <div class="song__image">
                     <img v-bind:src="activeSong.cover" alt="">
@@ -16,6 +27,17 @@
 
 <script>
 export default {
+    methods: {
+        togglePrevious: function() {
+
+        },
+        togglePlay: function() {
+
+        },
+        toggleNext: function() {
+            
+        }
+    },
     computed: {
         activeSong: function() {
             return this.$store.getters['songsList/getActiveSong']
@@ -33,7 +55,7 @@ export default {
 
     &__content {
         display: flex;
-        justify-content: space-between;
+        justify-content: start;
         align-items: center;
         box-sizing: border-box;
         max-width: 727px;
@@ -73,6 +95,28 @@ export default {
 
     &__artist {
         color: #686868;
+    }
+}
+
+.controls {
+    display: flex;
+    margin-right: 10px;
+
+    &__buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 60px;
+        width: 40px;
+        cursor: pointer;
+
+        &:not(:first-child) {
+            margin-left: 6px;
+        }
+
+        &:hover {
+            opacity: .50;
+        }
     }
 }
 </style>
