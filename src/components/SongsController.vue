@@ -2,13 +2,13 @@
     <div v-if="activeSong.title" class="bar">
         <div class="bar__content">
             <div class="controls">
-                <div v-on:click="togglePrevious" class="controls__buttons">
+                <div v-if="isFirstSong" v-on:click="togglePrevious" class="controls__buttons">
                     <div class="icon icon_size_28 icon__previous"></div>
                 </div>
                 <div v-on:click="togglePlay" class="controls__buttons">
                     <div class="icon icon_size_28 icon__pause"></div>
                 </div>
-                <div v-on:click="toggleNext" class="controls__buttons">
+                <div v-if="isLastSong" v-on:click="toggleNext" class="controls__buttons">
                     <div class="icon icon_size_28 icon__next"></div>
                 </div>
             </div>
@@ -29,18 +29,24 @@
 export default {
     methods: {
         togglePrevious: function() {
-
+            this.$store.commit('songsList/SET_PREVIOUS_SONG')
         },
         togglePlay: function() {
 
         },
         toggleNext: function() {
-            
+            this.$store.commit('songsList/SET_NEXT_SONG')
         }
     },
     computed: {
         activeSong: function() {
             return this.$store.getters['songsList/getActiveSong']
+        },
+        isFirstSong: function() {
+            return !this.$store.getters['songsList/getFirstOrLast'].isFirst
+        },
+        isLastSong: function() {
+            return !this.$store.getters['songsList/getFirstOrLast'].isLast
         }
     }
 }
