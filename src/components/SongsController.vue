@@ -25,7 +25,7 @@
             </div>
             <div class="bar__right">
                 <div class="range-slider">
-                    <vue-slider v-model="songVolume" tooltip="none"></vue-slider>
+                    <vue-slider v-model="songVolume" tooltip="none" v-on:change="volumeChange"></vue-slider>
                 </div>
             </div>
         </div>
@@ -34,7 +34,7 @@
 
 <script>
 import VueSlider from 'vue-slider-component'
-import 'vue-slider-component/theme/default.css'
+import '../assets/style/vue-slider-component/custom.css'
 
 export default {
     components: {
@@ -44,7 +44,7 @@ export default {
         return {
             songActive: null,
             isPause: false,
-            songVolume: 0
+            songVolume: 20
         }
     },
     methods: {
@@ -85,8 +85,12 @@ export default {
                 this.songActive.pause()
                 this.songActive = new Audio(songUrl)
             }
-            this.songActive.volume = 0.1
+            this.songActive.volume = this.songVolume/100
             this.songActive.play()
+        },
+        volumeChange: function(rangeValue) {
+            if (this.songActive === null) return
+            this.songActive.volume = rangeValue/100
         }
     },
     computed: {
