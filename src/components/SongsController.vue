@@ -28,6 +28,9 @@
                     <vue-slider v-model="songVolume" tooltip="none" v-on:change="volumeChange"></vue-slider>
                 </div>
             </div>
+            <div v-on:click="progressClick" class="progress" ref="progress">
+                <div v-bind:style="{'width': currentPercents + '%'}" class="progress__bar"></div>
+            </div>
         </div>
     </div>
 </template>
@@ -44,7 +47,8 @@ export default {
         return {
             songActive: null,
             isPause: false,
-            songVolume: 20
+            songVolume: 20,
+            songCurrentPercents: 0
         }
     },
     methods: {
@@ -69,6 +73,7 @@ export default {
         },
         playSong: function(song) {
             this.isPause = false
+            this.setCurrentPercents()
 
             if (song === null) {
                 if (this.songActive !== null) {
@@ -91,6 +96,33 @@ export default {
         volumeChange: function(rangeValue) {
             if (this.songActive === null) return
             this.songActive.volume = rangeValue/100
+        },
+        getCurrentPercents: function() {
+            if (this.songActive === null) {
+                return 0
+            } else {
+                if (isNaN(this.songActive.duration)) {
+                    return 0
+                } else {
+                    return (this.songActive.currentTime / this.songActive.duration) * 100
+                }
+            }
+        },
+        setCurrentPercents: function() {
+            this.songCurrentPercents = this.getCurrentPercents()
+
+            setTimeout(() => {
+                if (this.songActive === null) return
+                this.setCurrentPercents()
+            }, 100)
+        },
+        progressClick: function(data) {
+            if (this.songActive === null) {
+                return
+            } else {
+                const currentTime = ( (data.clientX - this.$refs.progress.getBoundingClientRect().left) / this.$refs.progress.offsetWidth ) * this.songActive.duration
+                this.songActive.currentTime = currentTime
+            }
         }
     },
     computed: {
@@ -102,6 +134,9 @@ export default {
         },
         isLastSong: function() {
             return !this.$store.getters['songsList/getFirstOrLast'].isLast
+        },
+        currentPercents: function() {
+            return this.songCurrentPercents
         }
     },
     watch: {
@@ -120,6 +155,7 @@ export default {
     height: 60px;
 
     &__content {
+        position: relative;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -215,6 +251,22 @@ export default {
         height: 7px;
         width: 2px;
         background: #CCCCCC;
+    }
+}
+
+.progress {
+    position: absolute;
+    height: 12px;
+    width: 100%;
+    top: -12px;
+    left: 0px;
+    background-color: rgb(107,107,107);
+    cursor: pointer;
+
+    &__bar {
+        height: 100%;
+        width: 10%;
+        background-color: rgb(255,219,77);
     }
 }
 </style>
