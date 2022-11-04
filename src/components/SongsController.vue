@@ -29,6 +29,10 @@
                 </div>
             </div>
             <div v-on:click="progressClick" class="progress" ref="progress">
+                <div class="progress__time">
+                    <div class="progress__left">{{ currentTime }}</div>
+                    <div class="progress__right">{{ activeSong.time }}</div>
+                </div>
                 <div v-bind:style="{'width': currentPercents + '%'}" class="progress__bar"></div>
             </div>
         </div>
@@ -48,7 +52,8 @@ export default {
             songActive: null,
             isPause: false,
             songVolume: 20,
-            songCurrentPercents: 0
+            songCurrentPercents: 0,
+            songCurrentTime: '0'
         }
     },
     methods: {
@@ -73,7 +78,7 @@ export default {
         },
         playSong: function(song) {
             this.isPause = false
-            this.setCurrentPercents()
+            this.setCurrentPercentsAndTime()
 
             if (song === null) {
                 if (this.songActive !== null) {
@@ -108,12 +113,13 @@ export default {
                 }
             }
         },
-        setCurrentPercents: function() {
+        setCurrentPercentsAndTime: function() {
             this.songCurrentPercents = this.getCurrentPercents()
+            this.songCurrentTime = this.songActive?.currentTime ? this.songActive.currentTime : 0
 
             setTimeout(() => {
                 if (this.songActive === null) return
-                this.setCurrentPercents()
+                this.setCurrentPercentsAndTime()
             }, 100)
         },
         progressClick: function(data) {
@@ -123,6 +129,11 @@ export default {
                 const currentTime = ( (data.clientX - this.$refs.progress.getBoundingClientRect().left) / this.$refs.progress.offsetWidth ) * this.songActive.duration
                 this.songActive.currentTime = currentTime
             }
+        },
+        convertCurrentTimeInNormal:  function(currentTime) {
+            const m = Math.floor(currentTime % 3600 / 60).toString().padStart(2,'0')
+            const s = Math.floor(currentTime % 60).toString().padStart(2,'0')
+            return m + ':' + s
         }
     },
     computed: {
@@ -137,6 +148,9 @@ export default {
         },
         currentPercents: function() {
             return this.songCurrentPercents
+        },
+        currentTime: function() {
+            return this.convertCurrentTimeInNormal(this.songCurrentTime)
         }
     },
     watch: {
@@ -267,6 +281,24 @@ export default {
         height: 100%;
         width: 10%;
         background-color: rgb(255,219,77);
+    }
+
+    &__time {
+        position: absolute;
+        top: -1px;
+        font-size: 12px;
+        color: rgb(0, 0, 0);
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__left {
+        margin-left: 10px;
+    }
+
+    &__right {
+        margin-right: 10px;
     }
 }
 </style>
