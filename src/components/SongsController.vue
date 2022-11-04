@@ -6,7 +6,7 @@
                     <div class="icon icon_size_28 icon__previous"></div>
                 </div>
                 <div v-on:click="togglePlay" class="controls__buttons">
-                    <div class="icon icon_size_28 icon__pause"></div>
+                    <div v-bind:class="['icon', 'icon_size_28', togglePauseIcon()]"></div>
                 </div>
                 <div v-if="isLastSong" v-on:click="toggleNext" class="controls__buttons">
                     <div class="icon icon_size_28 icon__next"></div>
@@ -29,7 +29,8 @@
 export default {
     data: function() {
         return {
-            songActive: null
+            songActive: null,
+            isPause: false
         }
     },
     methods: {
@@ -37,12 +38,24 @@ export default {
             this.$store.commit('songsList/SET_PREVIOUS_SONG')
         },
         togglePlay: function() {
-
+            if (this.songActive === null) return
+            if (this.isPause === true) {
+                this.songActive.play()
+                this.isPause = false
+            } else {
+                this.songActive.pause()
+                this.isPause = true
+            }
         },
         toggleNext: function() {
             this.$store.commit('songsList/SET_NEXT_SONG')
         },
+        togglePauseIcon: function() {
+            return (this.isPause ? 'icon__pause' : 'icon__play')
+        },
         playSong: function(song) {
+            this.isPause = false
+
             if (song === null) {
                 if (this.songActive !== null) {
                     this.songActive.pause()
@@ -50,7 +63,7 @@ export default {
                     return
                 }
             }
-            
+
             const songUrl = this.$apiMusic.get.music(song.id)
             if (this.songActive === null) {
                 this.songActive = new Audio(songUrl)
