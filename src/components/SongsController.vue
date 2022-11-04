@@ -1,28 +1,32 @@
 <template>
     <div v-if="activeSong.title" class="bar">
         <div class="bar__content">
-            <div class="controls">
-                <div v-if="isFirstSong" v-on:click="togglePrevious" class="controls__buttons">
-                    <div class="icon icon_size_28 icon__previous"></div>
+            <div class="bar__left">
+                <div class="controls">
+                    <div v-if="isFirstSong" v-on:click="togglePrevious" class="controls__buttons">
+                        <div class="icon icon_size_28 icon__previous"></div>
+                    </div>
+                    <div v-on:click="togglePlay" class="controls__buttons">
+                        <div v-bind:class="['icon', 'icon_size_28', togglePauseIcon()]"></div>
+                    </div>
+                    <div v-if="isLastSong" v-on:click="toggleNext" class="controls__buttons">
+                        <div class="icon icon_size_28 icon__next"></div>
+                    </div>
                 </div>
-                <div v-on:click="togglePlay" class="controls__buttons">
-                    <div v-bind:class="['icon', 'icon_size_28', togglePauseIcon()]"></div>
-                </div>
-                <div v-if="isLastSong" v-on:click="toggleNext" class="controls__buttons">
-                    <div class="icon icon_size_28 icon__next"></div>
+                <div class="song">
+                    <div class="song__image">
+                        <img v-bind:src="activeSong.cover" alt="">
+                    </div>
+                    <div class="song__info">
+                        <div class="song__title">{{ activeSong.title }}</div>
+                        <div class="song__artist">{{ activeSong.artist }}</div>
+                    </div>
                 </div>
             </div>
-            <div class="song">
-                <div class="song__image">
-                    <img v-bind:src="activeSong.cover" alt="">
+            <div class="bar__right">
+                <div class="range-slider">
+                    <vue-slider v-model="songVolume" tooltip="none"></vue-slider>
                 </div>
-                <div class="song__info">
-                    <div class="song__title">{{ activeSong.title }}</div>
-                    <div class="song__artist">{{ activeSong.artist }}</div>
-                </div>
-            </div>
-            <div class="range-slider">
-                <vue-slider v-model="songVolume" tooltip="none"></vue-slider>
             </div>
         </div>
     </div>
@@ -113,7 +117,7 @@ export default {
 
     &__content {
         display: flex;
-        justify-content: start;
+        justify-content: space-between;
         align-items: center;
         box-sizing: border-box;
         max-width: 727px;
@@ -121,6 +125,11 @@ export default {
         background-color: rgba(228, 228, 228, 0.95);
         margin: 0 auto;
         padding: 0 30px;
+    }
+
+    &__left {
+        display: flex;
+        flex-direction: row;
     }
 }
 
