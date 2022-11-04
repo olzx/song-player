@@ -117,7 +117,7 @@ export default {
             }, 100)
         },
         progressClick: function(data) {
-            if (this.songActive === null) {
+            if (this.songActive === null || this.songCurrentPercents === 0) {
                 return
             } else {
                 const currentTime = ( (data.clientX - this.$refs.progress.getBoundingClientRect().left) / this.$refs.progress.offsetWidth ) * this.songActive.duration
