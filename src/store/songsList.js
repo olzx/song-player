@@ -22,6 +22,7 @@ const data = {
     mutations: {
         ADD_NEW_SONGS: function(state, songs) {
             state.songs.push(...songs)
+            this.commit('songsList/_TOGGLE_FIRST_OR_LAST_STATUS')
         },
         SET_ACTIVE_SONG: function(state, song) {
             if (state.activeSong === null) {
@@ -35,7 +36,7 @@ const data = {
                 this.commit('songsList/_TOGGLE_ACTIVE_STATUS', state.activeSong)
                 state.activeSong = song
             }
-            this.commit('songsList/_TOGGLE_FIRST_OR_LAST_STATUS', song)
+            this.commit('songsList/_TOGGLE_FIRST_OR_LAST_STATUS')
         },
         SET_PREVIOUS_SONG: function(state) {
             if (state.activeSong === null) return
