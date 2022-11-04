@@ -27,6 +27,11 @@
 
 <script>
 export default {
+    data: function() {
+        return {
+            songActive: null
+        }
+    },
     methods: {
         togglePrevious: function() {
             this.$store.commit('songsList/SET_PREVIOUS_SONG')
@@ -36,6 +41,25 @@ export default {
         },
         toggleNext: function() {
             this.$store.commit('songsList/SET_NEXT_SONG')
+        },
+        playSong: function(song) {
+            if (song === null) {
+                if (this.songActive !== null) {
+                    this.songActive.pause()
+                    this.songActive = null
+                    return
+                }
+            }
+            
+            const songUrl = this.$apiMusic.get.music(song.id)
+            if (this.songActive === null) {
+                this.songActive = new Audio(songUrl)
+            } else {
+                this.songActive.pause()
+                this.songActive = new Audio(songUrl)
+            }
+            this.songActive.volume = 0.1
+            this.songActive.play()
         }
     },
     computed: {
@@ -47,6 +71,11 @@ export default {
         },
         isLastSong: function() {
             return !this.$store.getters['songsList/getFirstOrLast'].isLast
+        }
+    },
+    watch: {
+        "$store.state.songsList.activeSong": function(newData) {
+            this.playSong(newData)
         }
     }
 }
