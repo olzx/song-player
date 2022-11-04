@@ -21,16 +21,26 @@
                     <div class="song__artist">{{ activeSong.artist }}</div>
                 </div>
             </div>
+            <div class="range-slider">
+                <vue-slider v-model="songVolume" tooltip="none"></vue-slider>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
+import VueSlider from 'vue-slider-component'
+import 'vue-slider-component/theme/default.css'
+
 export default {
+    components: {
+        VueSlider
+    },
     data: function() {
         return {
             songActive: null,
-            isPause: false
+            isPause: false,
+            songVolume: 0
         }
     },
     methods: {
@@ -165,6 +175,33 @@ export default {
         &:hover {
             opacity: .50;
         }
+    }
+}
+
+.range-slider {
+    position: relative;
+    height: 20px;
+    width: 100px;
+
+    &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        left: 50%;
+        height: 7px;
+        width: 2px;
+        background: #CCCCCC;
+    }
+
+    &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        left: 50%;
+        bottom: 2px;
+        height: 7px;
+        width: 2px;
+        background: #CCCCCC;
     }
 }
 </style>
