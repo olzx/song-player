@@ -28,12 +28,22 @@
                     <vue-slider v-model="songVolume" tooltip="none" v-on:change="volumeChange"></vue-slider>
                 </div>
             </div>
-            <div v-on:click="progressClick" class="progress" ref="progress">
+            <div 
+                v-on:click="progressClick" 
+                v-on:mousemove="progressHover" 
+                v-on:mouseenter="progressEnter"
+                v-on:mouseleave="progressLeave"
+                class="progress" 
+                ref="progress"
+                >
                 <div class="progress__time">
                     <div class="progress__left">{{ currentTime }}</div>
                     <div class="progress__right">{{ activeSong.time }}</div>
                 </div>
                 <div v-bind:style="{'width': currentPercents + '%'}" class="progress__bar"></div>
+                <div v-if="progressIsHover" v-bind:style="{'left': progressMouseX + 'px'}" class="progress__tooltip">
+                    {{ progressHoverTime }}
+                </div>
             </div>
         </div>
     </div>
@@ -53,7 +63,10 @@ export default {
             isPause: false,
             songVolume: 20,
             songCurrentPercents: 0,
-            songCurrentTime: '0'
+            songCurrentTime: '0',
+            progressMouseX: 0,
+            progressIsHover: false,
+            progressHoverTime: '00:00'
         }
     },
     methods: {
@@ -134,6 +147,22 @@ export default {
             const m = Math.floor(currentTime % 3600 / 60).toString().padStart(2,'0')
             const s = Math.floor(currentTime % 60).toString().padStart(2,'0')
             return m + ':' + s
+        },
+        progressHover: function(data) {
+            this.progressMouseX = data.layerX-55/2
+            if (this.songActive === null) return
+            if (isNaN(this.songActive.duration) === false) {
+                const currentTime = ( (data.clientX - this.$refs.progress.getBoundingClientRect().left) / this.$refs.progress.offsetWidth ) * this.songActive.duration
+                this.progressHoverTime = this.convertCurrentTimeInNormal(currentTime)
+            }
+        },
+        progressEnter: function() {
+            if (this.songActive === null) return
+            this.progressIsHover = true
+        },
+        progressLeave: function() {
+            if (this.songActive === null) return
+            this.progressIsHover = false
         }
     },
     computed: {
@@ -299,6 +328,33 @@ export default {
 
     &__right {
         margin-right: 10px;
+    }
+
+    &__tooltip {
+        position: absolute;
+        top: -45px;
+        left: 5px;
+        padding: 7px 10px;
+        border-radius: 3px;
+        color: #f4f4f4;
+        background-color: #222;
+        border: 1px solid rgb(105, 105, 105);
+        box-shadow: 0px 10px 20px -5px rgba(0, 0, 0, 0.4);
+
+        &:before {
+            content: '';
+            position: absolute;
+            
+            margin: 0 0 -8px -8px;
+            border-bottom: none;
+            border-top-color: #222;
+            border-top-width: 8px;
+            border-top-style: solid;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            bottom: 0px;
+            left: 27px
+        }
     }
 }
 </style>
