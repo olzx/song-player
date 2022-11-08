@@ -1,5 +1,6 @@
 <template>
     <div class="songs-items">
+        <SongsInput></SongsInput>
         <ul class="songs-items__table">
             <li class="songs-items__head">
                 <div class="songs-items__lef">
@@ -24,11 +25,13 @@
 <script>
 import SongsItemsItem from './SongsItemsItem.vue'
 import InfiniteLoading from 'vue-infinite-loading'
+import SongsInput from './SongsInput.vue'
 
 export default {
     components: {
         SongsItemsItem,
-        InfiniteLoading
+        InfiniteLoading,
+        SongsInput
     },
     data: function() {
         return {
@@ -74,6 +77,7 @@ export default {
         padding: 0;
         margin: 0;
         margin-bottom: 230px;
+        margin-top: 30px;
     }
 
     &__head {
