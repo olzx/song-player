@@ -3,7 +3,6 @@
         <!-- Доделать поиск в следующей жизни
             <SongsInput v-on:input:search="searchInput"></SongsInput> 
         -->
-        <SongsInput></SongsInput> 
         <ul class="songs-items__table">
             <li class="songs-items__head">
                 <div class="songs-items__lef">
@@ -28,13 +27,13 @@
 <script>
 import SongsItemsItem from './SongsItemsItem.vue'
 import InfiniteLoading from 'vue-infinite-loading'
-import SongsInput from './SongsInput.vue'
+//import SongsInput from './SongsInput.vue'
 
 export default {
     components: {
         SongsItemsItem,
         InfiniteLoading,
-        SongsInput
+        //SongsInput
     },
     data: function() {
         return {
