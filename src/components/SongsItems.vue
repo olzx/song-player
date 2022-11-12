@@ -3,6 +3,7 @@
         <!-- Доделать поиск в следующей жизни
             <SongsInput v-on:input:search="searchInput"></SongsInput> 
         -->
+        <SongsInput></SongsInput> 
         <ul class="songs-items__table">
             <li class="songs-items__head">
                 <div class="songs-items__lef">
