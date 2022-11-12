@@ -1,6 +1,6 @@
 <template>
     <div class="songs-items">
-        <SongsInput></SongsInput>
+        <SongsInput v-on:input:search="searchInput"></SongsInput>
         <ul class="songs-items__table">
             <li class="songs-items__head">
                 <div class="songs-items__lef">
@@ -35,7 +35,9 @@ export default {
     },
     data: function() {
         return {
-            page: 1
+            page: 1,
+            isSearch: false,
+            searchText: ''
         }
     },
     methods: {
@@ -52,6 +54,21 @@ export default {
         },
         songClick: function(song) {
             this.$store.commit('songsList/SET_ACTIVE_SONG', song)
+        },
+        searchInput: function(searchText) {
+            if (this.isSearch === false) {
+                this.isSearch = true
+                // search start
+                this.$store.commit('songsList/CLEAR_ALL_SONGS')
+            }
+            if (this.isSearch === true) {
+                if (searchText.length === 0) {
+                    this.isSearch = false
+                    // search end
+                    this.$store.commit('songsList/CLEAR_ALL_SONGS')
+                }
+            }
+            this.searchText = searchText
         }
     },
     computed: {
