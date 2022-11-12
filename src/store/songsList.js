@@ -24,6 +24,9 @@ const data = {
             state.songs.push(...songs)
             this.commit('songsList/_TOGGLE_FIRST_OR_LAST_STATUS')
         },
+        CLEAR_ALL_SONGS: function(state) {
+            state.songs = []
+        },
         SET_ACTIVE_SONG: function(state, song) {
             if (state.activeSong === null) {
                 this.commit('songsList/_TOGGLE_ACTIVE_STATUS', song)
