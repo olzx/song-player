@@ -1,5 +1,7 @@
 # app-music
 
+<h2 align="left"><a href="https://olzx.github.io/song-player/demo" target="_blank">Demo</a></h2>
+
 ## Project setup
 ```
 npm install
