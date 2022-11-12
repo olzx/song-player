@@ -1,12 +1,21 @@
 <template>
     <label class="search">
-        <input class="search__input" type="search" placeholder="Поиск треков...">
+        <input v-model.trim="searchMessage" class="search__input" type="search" placeholder="Поиск треков...">
     </label>
 </template>
 
 <script>
 export default {
-
+    data: function() {
+        return {
+            searchMessage: ''
+        }
+    },
+    watch: {
+        searchMessage: function(search) {
+            this.$emit('input:search', search)
+        }
+    }
 }
 </script>
 
